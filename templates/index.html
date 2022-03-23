@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Image Processor</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<p><h1 align="center">Image Processor</h1></p>
+<div class="container">
+
+<div class="row">
+    <form method="post" action="/perform" enctype="multipart/form-data" id="input_ops" role="form">
+        <p>* Choose the selected operation or the customized operation</p>
+        <h2>Select a file to upload</h2>
+        <dl>
+            <p>
+                <input id="img" type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+
+        <h2>Select an operation(s):</h2>
+        <p>
+            <label for="Flip">Flip</label>
+            <input id="flip" name="flip" style=" width: 16%" type="text" placeholder="0 for vertical, 1 for horizontal" autocomplete="off">
+
+            <label style="text-indent :2em">Rotate</label>
+            <input id="rotate" name="rotate" style=" width: 16%" type="text" placeholder="+/- n degrees" autocomplete="off">
+
+            <label style="text-indent :2em">Grayscale</label>
+            <input id="grayscale" name="grayscale" style=" width: 16%" type="text" placeholder="0 for no, 1 for yes" autocomplete="off">
+
+            <label style="text-indent :2em">Resize</label>
+            <input id="resize" name="resize" style=" width: 16%" type="text" placeholder="?%" autocomplete="off"><br>
+        </p>
+        <p>
+            <label>Thumbnail</label>
+            <input id="thumbnail" name="thumbnail" style=" width: 16%" type="text" placeholder="0 for no, 1 for yes" autocomplete="off">
+
+            <label style="text-indent :1em">Rotate left</label>
+            <input id="rotate_left" name="rotate_left" style=" width: 16%" type="text" placeholder="1~3 times to rotate left 90°" autocomplete="off">
+
+            <label style="text-indent :1em">Rotate right</label>
+            <input id="rotate_right" name="rotate_right" style=" width: 16%" type="text" placeholder="1~3 times to rotate right 90°" autocomplete="off">
+        </p>
+
+        <h2>Customize an operation(s):</h2>
+        <p>
+            <label style="text-indent :1em">Customization</label>
+            <input id = "customize" name="customization" style="width: 64%" type="text" placeholder="flip 1, rotate 77, grayscale 1, resize 30, thumbnail 1, rotate_left 2, rotate_right 1, ...">
+        </p>
+        <p>
+            <input type="reset" value="Reset" class="btn btn-info">
+            <input type="submit" value="Submit" class="btn btn-info">
+        </p>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+</div>
+</div>
+</body>
+</html>
